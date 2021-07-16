@@ -198,13 +198,37 @@ def period_processor(df):
         return_cols.append('{}_rank'.format(col))
 
     return df[return_cols]
-
-
-def mp_processing_handler(func, chunk_column):
+        
+    
+def mp_processor(func, chunk_col):
+    '''
+    chunk df and apply preprocessing function
     '''
     
-    '''
+    jobs = list()
+    df_grouped = df.groupby(chunk_col)
+    for group in df_grouped.groups.keys():
+        jobs.append(df_grouped.get_group(group))
         
+    shuffle(jobs)  # shuffle jobs
+    
+    # chunksize
+    if len(jobs) > 2*mp.cpu_count():
+        chunksize = 
+    else:
+        chunksize = 1
+    
+    pool, out = mp.Pool(processes=mp.cpu_count())
+    outputs = pool.imap_unordered(func, jobs, chunksize=)
+    
+    for out_ in output:
+        out.append(out_)
+        
+    pool.close()
+    pool.join()
+    
+    return pd.concat(out, ignore_index=True).set_index(['ticker','timestamp'])
+    
     
 def ticker_processor_daily(df):
     '''
