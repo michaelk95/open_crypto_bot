@@ -198,6 +198,12 @@ def period_processor(df):
         return_cols.append('{}_rank'.format(col))
 
     return df[return_cols]
+
+
+def mp_processing_handler(func, chunk_column):
+    '''
+    
+    '''
         
     
 def ticker_processor_daily(df):
