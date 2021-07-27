@@ -214,7 +214,7 @@ def mp_processor(func, chunk_col):
     
     # chunksize
     if len(jobs) > 2*mp.cpu_count():
-        chunksize = 
+        chunksize = int(len(jobs) / mp.cpu_count())
     else:
         chunksize = 1
     
@@ -229,25 +229,3 @@ def mp_processor(func, chunk_col):
     
     return pd.concat(out, ignore_index=True).set_index(['ticker','timestamp'])
     
-    
-def ticker_processor_daily(df):
-    '''
-    Preprocess individual ticker data, daily interval data
-    
-    Parameters
-    ----------
-    df : pd.DataFrame
-        individual ticker data
-        
-    Returns
-    ----------
-    df : pd.DataFrame
-        ticker data with added columns
-    '''
-    
-    # resample to daily
-    
-    
-    
-
-# cross asset, single date - df split on date
